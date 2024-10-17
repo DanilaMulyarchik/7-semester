@@ -1,0 +1,1 @@
+Whoosh is a fast, featureful full-text indexing and searching library.

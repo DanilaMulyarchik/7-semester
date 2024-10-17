@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Поиск документов</title>
+</head>
+<body>
+    <h1>Поиск документов</h1>
+    <h3>Перед началом поиска необходимо заполнить папку files файлами.</h3>
+    <form action="/search" method="post">
+        <label for="query">Введите поисковый запрос:</label>
+        <input type="text" id="query" name="query" required>
+        <br>
+        <label for="logic_op">Введите логический оператор (AND/OR):</label>
+        <select id="logic_op" name="logic_op" required>
+            <option value="AND">AND</option>
+            <option value="OR">OR</option>
+        </select>
+        <br>
+        <button type="submit">Поиск</button>
+    </form>
+
+    {% if results %}
+    <h2>Результаты поиска:</h2>
+    <table>
+        <tr>
+            <th>Ссылка</th>
+            <th>Содержание</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td><a href="/{{ result['title'] }}.txt" target="_blank">{{ result['title'] }}</a></td>
+            <td>{{ result.highlighted|safe }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3>Оценка качества поиска:</h3>
+    <ul>
+        <li>Precision: {{ precision }}</li>
+        <li>Recall: {{ recall }}</li>
+        <li>F1 Score: {{ f1 }}</li>
+        <li>Accuracy: {{ accuracy }}</li>
+        <li>Error: {{ error }}</li>
+    </ul>
+    {% endif %}
+</body>
+</html>

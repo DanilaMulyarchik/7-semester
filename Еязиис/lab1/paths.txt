@@ -1,0 +1,8 @@
+downloaded_files/doc1.txt
+downloaded_files/doc4.txt
+downloaded_files/temp//doc2.txt
+downloaded_files/temp//doc3.txt
+downloaded_files/temp//doc6.txt
+downloaded_files/temp//temp//doc5.txt
+downloaded_files/temp//temp//doc7.txt
+downloaded_files/doc7.txt
