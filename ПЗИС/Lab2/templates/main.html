@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация и Таблица Пользователей</title>
+    <link rel="stylesheet" href="static/main.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Левая панель для формы регистрации -->
+    <div class="register-form">
+        <form method="POST" action="/add_user">
+            <label>Имя</label>
+            <input type="text" name="first_name" placeholder="Введите имя" required>
+
+            <label>Фамилия</label>
+            <input type="text" name="last_name" placeholder="Введите фамилию" required>
+
+            <label>Логин</label>
+            <input type="text" name="username" placeholder="Введите логин" required>
+
+            <label>Почта</label>
+            <input type="text" name="email" placeholder="Введите почту" required>
+
+            <label>Пароль</label>
+            <input type="password" name="password" placeholder="Введите пароль" required>
+
+            <label>Повторите пароль</label>
+            <input type="password" name="repeat_password" placeholder="Повторите пароль" required>
+
+            <button onclick="window.location.href='/add_user'" class="register-button">Добавить пользователя</button>
+        </form>
+    </div>
+
+    <!-- Правая панель для таблицы пользователей -->
+    <div class="user-table">
+        <input type="text" class="search-bar" placeholder="Поиск">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>
+                        <form action="/update_user" method="post" style="display:inline;">
+                            <input type="hidden" name="first_name" value="{{ user.first_name }}">
+                            <input type="hidden" name="last_name" value="{{ user.last_name }}">
+                            <button type="submit" class="action-button">Редактировать</button>
+                        </form>
+                        <form action="/delete_user" method="post" style="display:inline;">
+                            <input type="hidden" name="first_name" value="{{ user.first_name }}">
+                            <input type="hidden" name="last_name" value="{{ user.last_name }}">
+                            <button type="submit" class="delete-button">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

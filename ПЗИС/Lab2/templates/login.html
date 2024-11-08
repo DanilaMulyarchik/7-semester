@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в систему</title>
+    <link rel="stylesheet" href="static/static.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Авторизация</h2>
+    <form method="POST" action="/main">
+        <input type="text" name="username" class="input-field" placeholder="Логин" required>
+        <input type="password" name="password" class="input-field" placeholder="Пароль" required>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <button onclick="window.location.href='/main'" class="button login-button">Вход</button>
+
+    </form>
+    <button onclick="window.location.href='/register'" class="button register-button">Регистрация</button>
+</div>
+
+</body>
+</html>

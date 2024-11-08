@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="static/static.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Регистрация</h2>
+    <form action="/register" method="POST">
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <input type="text" name="first_name" class="input-field" placeholder="Имя" required>
+        <input type="text" name="last_name" class="input-field" placeholder="Фамилия" required>
+        <input type="text" name="username" class="input-field" placeholder="Логин" required>
+        <input type="text" name="email" class="input-field" placeholder="Почта" required>
+        <input type="password" name="password" class="input-field" placeholder="Пароль" required>
+        <input type="password" name="repeat_password" class="input-field" placeholder="Повторный пароль" required>
+        <button type="submit" class="button login-button">Регистрация</button>
+    </form>
+    <button onclick="window.location.href='/'" class="button register-button">Назад</button>
+
+</div>
+
+</body>
+</html>
