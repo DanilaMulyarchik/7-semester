@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Голосовое управление</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Голосовое управление</h1>
+        <button id="startBtn">Начать запись</button>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const responseDiv = document.getElementById('response');
+
+        startBtn.addEventListener('click', () => {
+            if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+                const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.lang = 'ru-RU';
+                recognition.onresult = (event) => {
+                    const command = event.results[0][0].transcript;
+                    responseDiv.innerHTML = 'Вы сказали: ' + command;
+                    sendCommandToServer(command);
+                };
+                recognition.start();
+            } else {
+                alert("Ваш браузер не поддерживает голосовое распознавание.");
+            }
+        });
+
+        function sendCommandToServer(command) {
+            fetch('/process_command/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                responseDiv.innerHTML = 'Ответ: ' + data.response;
+            })
+            .catch(error => console.error('Ошибка:', error));
+        }
+    </script>
+</body>
+</html>

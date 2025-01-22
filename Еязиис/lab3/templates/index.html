@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реферирование документов</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Система автоматического реферирования</h1>
+        <form action="/process/" method="post" enctype="multipart/form-data">
+            <label for="file">Загрузите текстовый документ:</label><br>
+            <input type="file" id="file" name="file" required><br><br>
+            <button type="submit">Обработать</button>
+        </form>
+
+        {% if results %}
+        <h2>Результаты</h2>
+        <p><strong>Исходный файл:</strong> {{ results.original_file }}</p>
+        <p><strong>Реферат</strong> {{ results.api_abstract }}</p>
+        <p><strong>Классический реферат:</strong> {{ results.classic_abstract }}</p>
+
+        <h3>Реферат-ключевые слова:</h3>
+        <div>
+            {% for root, children in results.keywords_abstract.items() %}
+                <p><strong>{{ root }}</strong></p>
+                <ul>
+                    {% for phrase, freq in children %}
+                        <li>{{ phrase }} (частота: {{ freq }})</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

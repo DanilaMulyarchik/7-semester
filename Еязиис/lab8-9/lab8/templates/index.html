@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Синтез речи</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Синтез речи</h1>
+        <form action="/synthesize/" method="post">
+            <label for="text">Введите текст:</label>
+            <textarea id="text" name="text" rows="5" required></textarea>
+
+            <label for="rate">Темп (слов/мин):</label>
+            <input type="number" id="rate" name="rate" value="150" min="50" max="3000">
+
+            <label for="volume">Громкость (0.0 - 1.0):</label>
+            <input type="number" id="volume" name="volume" step="0.1" value="1.0" min="0.0" max="1.0">
+
+            <label for="voice_id">Голос:</label>
+            <select id="voice_id" name="voice_id">
+                <option value="0">Мужской</option>
+            </select>
+
+            <button type="submit">Синтезировать</button>
+        </form>
+
+        <!-- Блок для аудио -->
+        {% if audio_url %}
+        <div class="audio-container">
+            <h2>Прослушайте сгенерированный текст:</h2>
+            <audio controls>
+                <source src="{{ audio_url }}" type="audio/wav">
+                Ваш браузер не поддерживает воспроизведение аудио.
+            </audio>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
